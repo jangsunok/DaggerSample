@@ -17,24 +17,33 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+
     SharedPreferencesStore sharedPreferencesStore;
     Retrofit retrofit;
     Realm realm;
-    @Inject
-    UserRealmStore userRealmStore;
-    @Inject
-    UserRestApi userRestApi;
+
+    //Injected by UserModule
+    @Inject UserRealmStore userRealmStore;
+    @Inject UserRestApi userRestApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Get object from Application Component
         retrofit = Injector.getApplicationComponent().retrofit();
         realm = Injector.getApplicationComponent().realm();
+
+        //Also you can use this method
+        //retrofit = ((MyApplication)getApplication()).getRetrofit();
+        //realm = ((MyApplication)getApplication()).getRealm();
+
         sharedPreferencesStore = Injector.getApplicationComponent().sharedPreferencesStore();
 
+        //After Inject, you can use UseRealmStore and userRestApi
         Injector.getUserComponent().inject(this);
+
 
         //do something what you want
 
