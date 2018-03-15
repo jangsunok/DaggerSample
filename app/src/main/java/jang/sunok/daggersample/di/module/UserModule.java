@@ -13,23 +13,19 @@ import retrofit2.Retrofit;
  */
 @Module
 public class UserModule {
-    Realm realm;
-    Retrofit retrofit;
 
-    public UserModule(Realm realm, Retrofit retrofit) {
-        this.realm = realm;
-        this.retrofit = retrofit;
-    }
 
     @Provides
     @PerActivity
-    public UserRestApi provideUserRestApi() {
+    public UserRestApi provideUserRestApi(Retrofit retrofit) {
+        //Retrofit is injected by ApplicationComponent(NetModule)
         return retrofit.create(UserRestApi.class);
     }
 
     @Provides
     @PerActivity
-    public UserRealmStore provideUserRealmStore() {
+    public UserRealmStore provideUserRealmStore(Realm realm) {
+        //Realm is injected by ApplicationComponent(ApplicationModule)
         return new UserRealmStore(realm);
     }
 

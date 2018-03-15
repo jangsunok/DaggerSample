@@ -17,8 +17,6 @@ import jang.sunok.daggersample.di.module.UserModule;
 
 public class Injector {
 
-    private Injector() {
-    }
 
     private static ApplicationComponent applicationComponent;
     private static UserComponent userComponent;
@@ -27,7 +25,7 @@ public class Injector {
     public static void initializeApplicationComponent(MyApplication application) {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(application))
-                .netModule(new NetModule(application))
+                .netModule(new NetModule())
                 .build();
     }
 
@@ -35,10 +33,12 @@ public class Injector {
         return applicationComponent;
     }
 
+
     public static UserComponent getUserComponent() {
         if (userComponent == null) {
             userComponent = DaggerUserComponent.builder()
-                    .userModule(new UserModule(getApplicationComponent().realm(), getApplicationComponent().retrofit()))
+                    .applicationComponent(getApplicationComponent())
+                    .userModule(new UserModule())
                     .build();
         }
         return userComponent;

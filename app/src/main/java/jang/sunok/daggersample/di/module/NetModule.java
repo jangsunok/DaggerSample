@@ -26,13 +26,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetModule {
-    MyApplication application;
-
-
-    public NetModule(MyApplication application) {
-        this.application = application;
-
-    }
 
 
     /*

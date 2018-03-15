@@ -1,6 +1,8 @@
 package jang.sunok.daggersample.di.component;
 
 
+import android.app.Application;
+
 import dagger.Component;
 import jang.sunok.daggersample.MainActivity;
 import jang.sunok.daggersample.di.PerActivity;
@@ -11,7 +13,7 @@ import jang.sunok.daggersample.di.module.UserModule;
  */
 
 @PerActivity
-@Component(modules = {UserModule.class})
+@Component(dependencies = ApplicationComponent.class, modules = {UserModule.class})
 public interface UserComponent {
 
     void inject(MainActivity activity);
